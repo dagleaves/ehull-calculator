@@ -1,8 +1,7 @@
 # Energy Above the Convex Hull Calculator
 
 Interfaces with the Materials Project database to calculate the e_hull of a given csv
-with formulas and their corresponding total energies. The program expects the csv
-to contain headers.
+containing material formulas and their corresponding total energies.
 
 ## Dependencies
 
