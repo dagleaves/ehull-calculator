@@ -23,8 +23,8 @@ pip install -r requirements.txt
 The input file should be formatted as follows:
 
 ```
-formula,total_energy
-Eu2HgO6,-6.666567894
+formula,total_energy_per_atom
+La9ErO15,-1.323633793
 ```
 
 ## Running the program
@@ -33,4 +33,7 @@ Eu2HgO6,-6.666567894
 python ehull.py -i input.csv -o output.csv
 ```
 
-
+## Expected output
+```
+La9ErO15,7.497252317
+```
