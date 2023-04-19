@@ -9,7 +9,7 @@ from pymatgen.entries.computed_entries import ComputedEntry
 from pymatgen.core.composition import Composition
 from mp_api.client import MPRester
 
-API_KEY = "YOUR API KEY"
+API_KEY = "VAkQ18msf9jcfU73VRMtgcHE4zEbNEdG"
 
 
 def formulaExpander(formula):
@@ -40,7 +40,10 @@ def get_num_atoms(formula):
     s = re.findall('([A-Z][a-z]?)([0-9]?\.?[0-9]*)', formula)
     num_atoms = 0
     for sa, sb in s:
-        num_atoms += int(sb == '')
+        if sb == '':
+            num_atoms += 1
+        else:
+            num_atoms += int(sb)
     return num_atoms
 
 
@@ -80,9 +83,9 @@ def get_E_above_hull(formula, E_atom):
         competitive_energy = comp.energy_per_atom * num_atoms
 
         competitive_entry = ComputedEntry(
+
             composition=competitive_comp, energy=competitive_energy)
         competitive_entries.append(competitive_entry)
-
     all_entries = [entry] + competitive_entries
 
     phase_diagram = PhaseDiagram(all_entries)
@@ -97,10 +100,12 @@ def run_debug():
     mpr = MPRester(API_KEY)
     print('Collecting materials from MP database')
     mats = mpr.summary.search(
-        material_ids=['mp-149', 'mp-505569', 'mp-936295', 'mp-862690'], fields=['composition', 'energy_per_atom', 'energy_above_hull', 'material_id'])
+        # material_ids=['mp-149', 'mp-505569', 'mp-936295', 'mp-862690'], fields=['composition', 'energy_per_atom', 'energy_above_hull', 'material_id'])
+        material_ids=['mp-785008'], fields=['composition', 'energy_per_atom', 'energy_above_hull', 'material_id'])
 
     print('ID', 'Real E_hull', 'Calc E_hull')
     for mat in mats:
+        print(mat.energy_per_atom)
         print(mat.material_id, mat.energy_above_hull,
               get_E_above_hull(str(mat.composition).replace(' ', ''), mat.energy_per_atom)[1])
 
@@ -112,8 +117,12 @@ def main(args):
         next(reader)
 
         for row in reader:
-            formula = row[0].split('-')[1]
-            E_atom = float(row[2])
+            if '-' in row:
+                formula = row[0].split('-')[1]
+            else:
+                formula = row[0]
+            print(formula)
+            E_atom = float(row[1])
 
             decomp, energy_above_hull = get_E_above_hull(formula, E_atom)
             save.append([row[0], energy_above_hull])
@@ -127,7 +136,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Calculates energy above the convex hull for a csv of formulas and total energies (with header)')
-    parser.add_argument('--debug', action='store_false',
+    parser.add_argument('--debug', action='store_true',
                         help='Enable debug mode (test imports)')
     parser.add_argument('-i', '--input', type=str,
                         required=True, help='Input csv filename')
