@@ -1,7 +1,7 @@
 # Energy Above the Convex Hull Calculator
 
 Interfaces with the Materials Project database to calculate the e_hull for each material in a given csv
-containing material formulas and their corresponding total energies.
+containing material formulas and their corresponding total energies per atom (must be per atom, not total overall).
 
 ## Dependencies
 
