@@ -5,7 +5,7 @@ containing material formulas and their corresponding total energies per atom (mu
 
 ## Dependencies
 
-There are two dependencies:
+There are three dependencies:
 
 ```
 mp-api==0.30.8
