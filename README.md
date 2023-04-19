@@ -8,7 +8,8 @@ containing material formulas and their corresponding total energies per atom (mu
 There are two dependencies:
 
 ```
-mp_api==0.30.8
+mp-api==0.30.8
+mpcontribs-client==5.1.1
 pymatgen==2023.1.30
 ```
 
