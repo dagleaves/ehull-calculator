@@ -111,7 +111,7 @@ def run_debug():
 
 
 def main(args):
-    save = []
+    save = [['formula', 'ev_atom']]
     with open(args.input, 'r') as f:
         reader = csv.reader(f)
         next(reader)
