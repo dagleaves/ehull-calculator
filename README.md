@@ -1,6 +1,6 @@
 # Energy Above the Convex Hull Calculator
 
-Interfaces with the Materials Project database to calculate the e_hull for each material in a given csv
+Interfaces with the Materials Project database to calculate the energy above the convex hull (eV/atom) for each material in a given csv
 containing material formulas and their corresponding total energies per atom (must be per atom, not total overall).
 
 ## Dependencies
@@ -36,5 +36,6 @@ python ehull.py -i input.csv -o output.csv
 
 ## Expected output
 ```
+formula,ev_atom
 La9ErO15,7.497252317
 ```
